@@ -1,6 +1,20 @@
 # Ballclock
 
-**TODO: Add description**
+ballclock simulation in elixir
+
+# Usage
+
+Pull the repo then do the following
+
+`iex -S mix`
+
+then in iex do:
+
+`list = Ballclock.agent_init(x); Ballclock.go_until_initial_order(list)`
+
+where x is the amount of balls you want to start the simulation with
+it will exit when its done with how many days it takes before the similation
+is back to its initial state (1..x) and what the ball count was
 
 ## Installation
 
