@@ -1,6 +1,6 @@
 # Ballclock
 
-ballclock simulation in elixir
+[ballclock simulation](http://www.chilton.com/~jimw/ballclk.html) in elixir
 
 # Usage
 
