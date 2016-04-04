@@ -91,5 +91,23 @@ defmodule Ballclock do
       IO.puts('all done')
     end
   end
+
+  def hour_run(list, runs \\ 1) do
+    increment(list, runs*720)
+  end
+
+  def permutation_vector(list) do
+    pristine = get_state(:queue, list)
+    hour_run(list)
+    queue = get_state(:queue, list)
+
+    instructions = Enum.map(pristine, fn(x) ->
+      Enum.find_index(queue, fn(y) -> x == y end)
+    end)
+    IO.inspect(List.to_tuple(instructions))
+    IO.inspect(List.to_tuple(pristine))
+    IO.inspect(List.to_tuple(queue))
+    instructions
+  end
   # agentMap = Enum.map(Enum.to_list(1..10), fn(x) -> {:ok, ragent} = Agent.start_link(fn -> [] end); ragent end)
 end
