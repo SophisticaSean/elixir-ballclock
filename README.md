@@ -22,6 +22,11 @@ To use the provided permutation method (simulates 12 hour cycle, performs 12 hou
 do this:
 `Ballclock.agent_init(123); Ballclock.permute_until_pristine(list)`
 
+# TODO
+
+Upon some inspection, as 123 balls runs in about 30 seconds (permutations) or 50 minutes (full sim) which is super slow, it looks
+like some performance can be gained by not yusing Agents as agents seem to operate orders of magnitude slower than keeping the state within one monolithic function. Will end up exploring this non-idiomatic style of solution later.
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
