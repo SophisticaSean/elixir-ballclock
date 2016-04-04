@@ -23,7 +23,6 @@ defmodule Ballclock do
   def agent_plus(agent, agent_name, item, agent_list) do
     list = get_state(agent_name, agent_list)
     list_count = Enum.count(list)
-    queue = Map.get(agent_list, :queue)
     next_agent_name = nil
     max = nil
     case agent_name do
@@ -40,6 +39,7 @@ defmodule Ballclock do
     cond do
       list_count >= max ->
         # add current agent's list back to the queue
+        queue = Map.get(agent_list, :queue)
         Agent.update(queue, fn arr -> arr ++ list end)
         # IO.inspect(Agent.get(queue, fn list -> list end))
         # clear current agent's list
@@ -104,10 +104,44 @@ defmodule Ballclock do
     instructions = Enum.map(pristine, fn(x) ->
       Enum.find_index(queue, fn(y) -> x == y end)
     end)
-    IO.inspect(List.to_tuple(instructions))
-    IO.inspect(List.to_tuple(pristine))
+    #IO.inspect(List.to_tuple(instructions))
+    #IO.inspect(List.to_tuple(pristine))
     IO.inspect(List.to_tuple(queue))
     instructions
+  end
+
+  def permute(list, instructions) do
+    queue = get_state(:queue, list)
+    Agent.update(Map.get(list, :queue), fn x -> permute(queue, queue, instructions, 0) end)
+  end
+
+  def permute(queue, temp_queue, instructions, count) do
+    case Enum.count(instructions) != count do
+      true ->
+        #IO.inspect(List.to_tuple(temp_queue))
+        #IO.puts('#{Enum.at(temp_queue, count)} -> #{Enum.at(instructions, count)}')
+        temp_queue = List.replace_at(temp_queue, Enum.at(instructions, count), Enum.at(queue, count))
+        permute(queue, temp_queue, instructions, count + 1)
+      _ -> temp_queue
+    end
+  end
+
+  def permute_until_pristine(list) do
+    instructions = permutation_vector(list)
+    queue = get_state(:queue, list)
+    queue_count = Enum.count(queue)
+    pristine = Enum.to_list(1..queue_count)
+    permute_until_pristine(list, instructions, pristine)
+  end
+
+  def permute_until_pristine(list, instructions, pristine, count \\ 1) do
+    permute(list, instructions)
+    queue = get_state(:queue, list)
+    IO.inspect(List.to_tuple(queue))
+    case queue == pristine do
+      false -> permute_until_pristine(list, instructions, pristine, count + 1)
+      _ -> IO.puts(count)
+    end
   end
   # agentMap = Enum.map(Enum.to_list(1..10), fn(x) -> {:ok, ragent} = Agent.start_link(fn -> [] end); ragent end)
 end
