@@ -56,13 +56,13 @@ defmodule Ballclock do
     end
   end
 
-  def go_until_initial_order(list) do
+  def simulate_until_pristine(list) do
     initial_state = get_state(:queue, list)
     Ballclock.increment(list)
     go_until_initial_order(list, initial_state, 0)
   end
 
-  def go_until_initial_order(list, initial_state, count) do
+  def simulate_until_pristine(list, initial_state, count) do
     current_state = get_state(:queue, list)
     done = initial_state == current_state
     count = count + 1

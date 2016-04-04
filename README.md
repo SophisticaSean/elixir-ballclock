@@ -10,7 +10,7 @@ Pull the repo then do the following
 
 then in iex do:
 
-`list = Ballclock.agent_init(x); Ballclock.go_until_initial_order(list)`
+`list = Ballclock.agent_init(x); Ballclock.simulate_until_pristine(list)`
 
 where x is the amount of balls you want to start the simulation with
 it will exit when its done with how many days it takes before the similation
