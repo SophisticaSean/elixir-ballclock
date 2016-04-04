@@ -140,7 +140,7 @@ defmodule Ballclock do
     IO.inspect(List.to_tuple(queue))
     case queue == pristine do
       false -> permute_until_pristine(list, instructions, pristine, count + 1)
-      _ -> IO.puts(count)
+      _ -> IO.puts(count/2)
     end
   end
   # agentMap = Enum.map(Enum.to_list(1..10), fn(x) -> {:ok, ragent} = Agent.start_link(fn -> [] end); ragent end)

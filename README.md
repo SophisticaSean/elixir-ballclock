@@ -16,6 +16,12 @@ where x is the amount of balls you want to start the simulation with
 it will exit when its done with how many days it takes before the similation
 is back to its initial state (1..x) and what the ball count was
 
+# cheating
+
+To use the provided permutation method (simulates 12 hour cycle, performs 12 hour cycle transformation until pristine)
+do this:
+`Ballclock.agent_init(123); Ballclock.permute_until_pristine(list)`
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
